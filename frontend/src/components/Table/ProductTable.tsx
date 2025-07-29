@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Table, Tag } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import { Product } from '../../types';
@@ -10,6 +10,8 @@ interface ProductTableProps {
 }
 
 export const ProductTable: React.FC<ProductTableProps> = ({ products, loading }) => {
+  const [pageSize, setPageSize] = useState(20);
+  const [currentPage, setCurrentPage] = useState(1);
   const columns: ColumnsType<Product> = [
     {
       title: 'Наименование товара',
@@ -75,9 +77,21 @@ export const ProductTable: React.FC<ProductTableProps> = ({ products, loading })
       rowKey="id"
       loading={loading}
       pagination={{
-        pageSize: 20,
+        current: currentPage,
+        pageSize: pageSize,
         showSizeChanger: true,
         showTotal: (total) => `Всего ${total} товаров`,
+        onChange: (page, size) => {
+          setCurrentPage(page);
+          if (size !== pageSize) {
+            setPageSize(size);
+            setCurrentPage(1);
+          }
+        },
+        onShowSizeChange: (_, size) => {
+          setPageSize(size);
+          setCurrentPage(1);
+        },
       }}
       scroll={{ x: 1000 }}
     />
