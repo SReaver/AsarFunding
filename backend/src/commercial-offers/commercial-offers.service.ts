@@ -24,7 +24,7 @@ export class CommercialOffersService {
 		commercialOffer.objectName = createDto.objectName;
 		commercialOffer.validityDays = createDto.validityDays;
 		commercialOffer.createdAt = new Date();
-		commercialOffer.expiresAt = new Date(commercialOffer.offerDate.getDate() + createDto.validityDays * 24 * 60 * 60 * 1000);
+		commercialOffer.expiresAt = new Date(Date.now() + createDto.validityDays * 24 * 60 * 60 * 1000);
 
 		const savedOffer = await manager.save(CommercialOffer, commercialOffer);
 

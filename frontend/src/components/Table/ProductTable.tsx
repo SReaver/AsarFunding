@@ -16,8 +16,8 @@ export const ProductTable: React.FC<ProductTableProps> = ({ products, loading })
       dataIndex: 'name',
       key: 'name',
       width: '25%',
-      render: (text: string, record: Product) => (
-        <span style={{ textDecoration: record.isExpired ? 'line-through' : 'none' }}>
+      render: (text: string, _: Product) => (
+        <span>
           {text}
         </span>
       ),
